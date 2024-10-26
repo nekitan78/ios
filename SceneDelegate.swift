@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  I Am Rich
+//  NikitoosEgg
 //
-//  Created by BMK on 27.09.2024.
+//  Created by BMK on 23.10.2024.
 //
 
 import UIKit

@@ -1,36 +1,44 @@
 //
 //  ViewController.swift
-//  Nikitoooooos
+//  NikitoosEgg
 //
 //  Created by BMK on 23.10.2024.
 //
 
 import UIKit
-import AVFoundation
 
 class ViewController: UIViewController {
-    
-    var player: AVAudioPlayer!
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-    
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
     }
     
-    var numCol: [String] = ["0","1", "2", "3", "4", "5", "6"]
-    
-    
-    @IBAction func butClick(_ sender: UIButton) {
-        let url = Bundle.main.url(forResource: numCol[sender.tag], withExtension: "wav")!
-        player = try! AVAudioPlayer(contentsOf: url)
-        player.play()
-    }
-    
-    
-    
-    
-    
-
 }
 
+extension ViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return movies.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as! MovieCollectionViewCell
+        cell.setup(with: movies[indexPath.row])
+        return cell
+    }
+}
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 200, height: 300)
+    }
+}
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(movies[indexPath.row].title)
+    }
+}
